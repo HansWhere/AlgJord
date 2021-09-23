@@ -1,7 +1,7 @@
 module Num.Natural.Algebra where
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
-open import Logic.Connective using (_∧_; _,_)
+open import Logic.Connective using (_∧_; _⹁_)
 
 module + where
     infixl 60 _+_
@@ -128,33 +128,33 @@ module * where
         ∎
 
     module to+ where
-        left-distr : (x y z : ℕ) → x * (y + z) ≡ x * y + x * z 
-        left-distr x y zero = ≡.refl
-        left-distr x y (succ z) = 
+        distrL : (x y z : ℕ) → x * (y + z) ≡ x * y + x * z 
+        distrL x y zero = ≡.refl
+        distrL x y (succ z) = 
                 x * (y + succ z)
             ≡⟨⟩
                 x * succ (y + z)
             ≡⟨⟩
                 x * (y + z) + x 
-            ≡⟨ (λ u → u + x) ◈ left-distr x y z ⟩
+            ≡⟨ (λ u → u + x) ◈ distrL x y z ⟩
                 x * y + x * z + x 
             ≡⟨ +.assoc (x * y) (x * z) x ⟩
                 x * y + (x * z + x)
             ≡⟨⟩
                 x * y + x * succ z 
             ∎
-        right-distr : (x y z : ℕ) → (x + y) * z ≡ x * z + y * z
-        right-distr x y z =
+        distrR : (x y z : ℕ) → (x + y) * z ≡ x * z + y * z
+        distrR x y z =
                 (x + y) * z
             ≡⟨ comm (x + y) z ⟩
                 z * (x + y)
-            ≡⟨ left-distr z x y ⟩
+            ≡⟨ distrL z x y ⟩
                 z * x + z * y 
             ≡⟨ ≡.cong2 (λ u v → u + v) (comm z x) (comm z y) ⟩
                 x * z + y * z
             ∎
         distr : (x y z : ℕ) → x * (y + z) ≡ x * y + x * z ∧ (x + y) * z ≡ x * z + y * z
-        distr x y z = left-distr x y z , right-distr x y z 
+        distr x y z = distrL x y z ⹁ distrR x y z 
 
     assoc : (x y z : ℕ) → x * y * z ≡ x * (y * z)
     assoc x y zero = ≡.refl
@@ -164,7 +164,7 @@ module * where
             x * y * z + x * y 
         ≡⟨ (λ u → u + x * y) ◈ assoc x y z ⟩
             x * (y * z) + x * y 
-        ≡⟨ ≡.symm (to+.left-distr x (y * z) y) ⟩
+        ≡⟨ ≡.symm (to+.distrL x (y * z) y) ⟩
             x * (y * z + y)
         ≡⟨⟩
             x * (y * succ z)

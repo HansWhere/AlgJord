@@ -1,8 +1,8 @@
 {-# OPTIONS --copatterns #-}
 module Num.Integer.SubtractionClosure.Definition where
-open import Num.Natural.Definition using (ℕ; succ; zero) public
+open import Num.Natural.Definition using (ℕ; succ; zero)
 open import Num.Natural.Algebra
-open + using (_+_) public
+open + using (_+_)
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
 open import Relation.Equivalance public
 

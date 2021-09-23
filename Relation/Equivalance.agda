@@ -5,7 +5,7 @@ open import Relation.Property using (Trans; trans; Symm; symm; Refl; refl) publi
 
 private 
     variable
-        ℓ ℓ' ℓ'' : Level
+        ℓ ℓ' : Level
 
 infixr 20 _≃⟨_⟩_ _≃⟨'_⟩_ _≃⟨⟩_
 infix 30 _●

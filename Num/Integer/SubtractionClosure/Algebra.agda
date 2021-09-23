@@ -50,8 +50,8 @@ module * where
 
     module to+ where
         open +
-        ldistr : (x y z : ℤ) → x * (y + z) ≡ x * y + x * z 
-        ldistr (x₁ -− x₂) (y₁ -− y₂) (z₁ -− z₂) = _
+        distrL : (x y z : ℤ) → x * (y + z) ≡ x * y + x * z 
+        distrL (x₁ -− x₂) (y₁ -− y₂) (z₁ -− z₂) = _
             
 
 
