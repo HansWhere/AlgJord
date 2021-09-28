@@ -3,7 +3,7 @@ open import Agda.Primitive using (Level)
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
 open import Logic.Connective using (_∧_; _⹁_)
 open import Algebra.Operator.Binary.Free
-open import Algebra.Operator.Binary.Permutation
+open import Algebra.Permutation
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 
 private 

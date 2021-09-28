@@ -21,12 +21,32 @@ _++_ : {A : Set ℓ} → List A → List A → List A
 [] ++ ys = ys
 x :: xs ++ ys = x :: (xs ++ ys)
 
+index/ : {A : Set ℓ} → List A → ℕ → A → A
+index/ [] n a = a
+index/ (x :: xs) ℕ.zero _ = x
+index/ (x :: xs) (ℕ.succ n) a = index/ xs n a
+
 shunt : {A : Set ℓ} → List A → List A → List A
 shunt [] ys = []
 shunt (x :: xs) ys = shunt xs (x :: ys)
 
 reverse : {A : Set ℓ} → List A → List A 
 reverse xs = shunt xs []
+
+[⋯_] : ℕ → List ℕ
+[⋯ ℕ.zero ] = ℕ.zero :: []
+[⋯ ℕ.succ x ] = [⋯ x ] ++ (ℕ.succ x :: [])
+
+[_⋯] : ℕ → List ℕ
+[ ℕ.zero ⋯] = ℕ.zero :: []
+[ ℕ.succ x ⋯] = ℕ.succ x :: [ x ⋯]
+
+[_⋯_] : ℕ → ℕ → List ℕ
+[ ℕ.zero ⋯ y ] = [⋯ y ]
+[ x ⋯ ℕ.zero ] = [ x ⋯]
+[ ℕ.succ x ⋯ ℕ.succ y ] with [ x ⋯ ℕ.succ y ]
+... | [] = []
+... | x' :: xs = xs
 
 pattern [_] z = 
     z :: []
