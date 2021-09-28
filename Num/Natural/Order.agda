@@ -1,7 +1,7 @@
 module Num.Natural.Order where
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 open import Num.Natural.Definition as ℕ using (ℕ)
-open import Logic.Connective using (_∧_; _,_; _∨_; lft; rgt)
+open import Logic.Connective using (_∧_; _⹁_; _∨_; lft; rgt)
 
 infix 40 _≤_
 data _≤_ : ℕ → ℕ → Set where
