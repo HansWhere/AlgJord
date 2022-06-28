@@ -65,7 +65,7 @@ module + where
     infixl 60 _∸_
     _∸_ : ℕ → ℕ → ℕ
     x ∸ zero = x 
-    zero ∸ x = zero 
+    zero ∸ succ x = zero 
     succ x ∸ succ y = x ∸ y 
 
     pred : ℕ → ℕ

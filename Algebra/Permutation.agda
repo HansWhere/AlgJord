@@ -4,6 +4,7 @@ open import Control.List.Vector.Definition
 open import Control.List.Definition
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 open import Control.Finite.Definition
+open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
 
 private 
     variable
@@ -34,11 +35,11 @@ switch (nxt ⒩) (x₁ :: x₂ :: xs) = x₁ :: switch ⒩ (x₂ :: xs)
 
 swap : {n : ℕ} → Fin n → Fin n → {A : Set ℓ} → List A → List A
 swap ⑴ ⑴ xs = xs
+swap {n = succ n} (nxt ⒨) (nxt ⒩) xs = switch ⒨ (switch ⒩ (swap {n = n} ⒨ ⒩ (switch ⒩ (switch ⒨ xs)))) 
 swap {n = n} ⑴ ⑵ xs = switch {n = n} ⑴ xs
 swap {n = n} ⑵ ⑴ xs = switch {n = n} ⑴ xs
 swap ⑴ (nxt (nxt ⒩)) xs = switch (nxt ⒩) (swap ⑴ (nxt ⒩) (switch (nxt ⒩) xs)) 
 swap (nxt (nxt ⒨)) ⑴ xs = switch (nxt ⒨) (swap (nxt ⒨) ⑴ (switch (nxt ⒨) xs))
-swap (nxt ⒨) (nxt ⒩) xs = switch ⒨ (switch ⒩ (swap ⒨ ⒩ (switch ⒩ (switch ⒨ xs)))) 
 
 cycle : {n : ℕ} → List (Fin n) → {A : Set ℓ} → List A → List A
 cycle [] xs = xs

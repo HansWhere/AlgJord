@@ -43,7 +43,7 @@ reverse xs = shunt xs []
 
 [_⋯_] : ℕ → ℕ → List ℕ
 [ ℕ.zero ⋯ y ] = [⋯ y ]
-[ x ⋯ ℕ.zero ] = [ x ⋯]
+[ ℕ.succ x ⋯ ℕ.zero ] = [ ℕ.succ x ⋯]
 [ ℕ.succ x ⋯ ℕ.succ y ] with [ x ⋯ ℕ.succ y ]
 ... | [] = []
 ... | x' :: xs = xs

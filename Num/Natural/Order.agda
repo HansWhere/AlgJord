@@ -27,8 +27,8 @@ trans zero _ = zero
 trans (succ x≤y) (succ y≤z) = succ (trans x≤y y≤z) 
 
 total : (x y : ℕ) → x ≤ y ∨ y ≤ x 
-total x ℕ.zero = rgt zero 
-total ℕ.zero y = lft zero
 total (ℕ.succ x) (ℕ.succ y) with total x y 
 ...    |   lft x≤y = lft (succ x≤y)
 ...    |   rgt y≤x = rgt (succ y≤x)
+total ℕ.zero y = lft zero
+total (ℕ.succ x) ℕ.zero = rgt zero 
