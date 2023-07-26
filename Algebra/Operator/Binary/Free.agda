@@ -30,7 +30,7 @@ assocl : {A : Set ℓ} → Free A → Free A
 assocl (pure x) = pure x
 assocl (xs ◌ pure y) = assocl xs ◌ pure y
 assocl (xs ◌ (ys ◌ zs)) = assocl ((xs ◌ ys) ◌ zs)
--- Is there any way to tell Agda compiler I am terminating gently instead of forcing him to agree?
+-- Is there any way to tell Agda compiler I am terminating nicely instead of forcing him to agree?
 
 private 
     open import Num.Natural.Definition using (ℕ; succ; zero)

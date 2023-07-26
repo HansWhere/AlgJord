@@ -2,6 +2,7 @@ module Num.Natural.Algebra where
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 open import Logic.Connective using (_∧_; _⹁_)
+open import Operator.Binary.Property using (Comm, Assoc, Distr)
 
 module + where
     infixl 60 _+_
@@ -10,27 +11,26 @@ module + where
     x + succ y = succ (x + y)
     {-# BUILTIN NATPLUS _+_ #-}
 
-    private
-        left-iden : (x : ℕ) → zero + x ≡ x
-        left-iden zero = ≡.refl
-        left-iden (succ x) = 
-                zero + (succ x)
-            ≡⟨⟩ 
-                succ (zero + x)
-            ≡⟨ succ ◈ left-iden x ⟩ 
-                succ x 
-            ∎
-        left-succ : (x y : ℕ) → succ x + y ≡ succ (x + y)
-        left-succ x zero = ≡.refl
-        left-succ x (succ y) = 
-                succ x + succ y
-            ≡⟨⟩ 
-                succ (succ x + y)
-            ≡⟨ succ ◈ left-succ x y ⟩ 
-                succ (succ (x + y))
-            ≡⟨⟩ 
-                succ (x + succ y)
-            ∎
+    left-iden : (x : ℕ) → zero + x ≡ x
+    left-iden zero = ≡.refl
+    left-iden (succ x) = 
+            zero + (succ x)
+        ≡⟨⟩ 
+            succ (zero + x)
+        ≡⟨ succ ◈ left-iden x ⟩ 
+            succ x 
+        ∎
+    left-succ : (x y : ℕ) → succ x + y ≡ succ (x + y)
+    left-succ x zero = ≡.refl
+    left-succ x (succ y) = 
+            succ x + succ y
+        ≡⟨⟩ 
+            succ (succ x + y)
+        ≡⟨ succ ◈ left-succ x y ⟩ 
+            succ (succ (x + y))
+        ≡⟨⟩ 
+            succ (x + succ y)
+        ∎
 
     comm : (x y : ℕ) → x + y ≡ y + x 
     comm zero y = left-iden y 
@@ -43,15 +43,13 @@ module + where
         ≡⟨⟩
             y + succ x 
         ∎
+    
+    instance
+        +-Comm : Comm _+_
+        Comm.comm : 
 
     assoc : (x y z : ℕ) → x + y + z ≡ x + (y + z)
-    assoc x y zero = 
-            x + y + zero 
-        ≡⟨⟩ 
-            x + y
-        ≡⟨ (λ u → x + u) ◈ ≡.refl ⟩ 
-            x + (y + zero) 
-        ∎
+    assoc x y zero = ≡.refl
     assoc x y (succ z) = 
             x + y + succ z
         ≡⟨⟩ 

@@ -37,7 +37,7 @@ module * where
     _*_ : ℤ → ℤ → ℤ
     (x₁ -− x₂) * (y₁ -− y₂) = (x₁ × y₁ ⊹ x₂ × y₂) -− (x₁ × y₂ ⊹ x₂ × y₁)
     
-    comm : (x y : ℤ) → x * y ≃ y * x 
+    comm : (x y : ℤ) → x * y ≃ y * x 
     comm (x₁ -− x₂) (y₁ -− y₂) = 
             (x₁ × y₁ ⊹ x₂ × y₂) ⊹ (y₁ × x₂ ⊹ y₂ × x₁)
         ≡⟨ ℕ.+.comm (x₁ × y₁ ⊹ x₂ × y₂) (y₁ × x₂ ⊹ y₂ × x₁) ⟩
@@ -50,9 +50,14 @@ module * where
 
     module to+ where
         open +
-        distrL : (x y z : ℤ) → x * (y + z) ≡ x * y + x * z 
-        distrL (x₁ -− x₂) (y₁ -− y₂) (z₁ -− z₂) = _
-            
+        distrL : (x y z : ℤ) → x * (y + z) ≃ x * y + x * z 
+        distrL (x₁ -− x₂) (y₁ -− y₂) (z₁ -− z₂) = 
+                x₁ × (y₁ ⊹ z₁) ⊹ x₂ × (y₂ ⊹ z₂) ⊹ (x₁ × y₂ ⊹ x₂ × y₁ ⊹ (x₁ × z₂ ⊹ x₂ × z₁))
+            ≡⟨ ≡.cong2 (λ a b → a ⊹ b ⊹ (x₁ × y₂ ⊹ x₂ × y₁ ⊹ (x₁ × z₂ ⊹ x₂ × z₁))) (ℕ.*.to+.distrL x₁ y₁ z₁) (ℕ.*.to+.distrL x₂ y₂ z₂) ⟩
+                x₁ × y₁ ⊹ x₁ × z₁ ⊹ (x₂ × y₂ ⊹ x₂ × z₂) ⊹ (x₁ × y₂ ⊹ x₂ × y₁ ⊹ (x₁ × z₂ ⊹ x₂ × z₁))
+            ≡⟨ ⟩ 
+
+
 
 
     -- assoc : (x y z : ℤ) → x * y * z ≃ x * (y * z)

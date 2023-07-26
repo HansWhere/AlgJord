@@ -1,6 +1,6 @@
 module Num.Integer.PositiveAndNegsuc.Definition where
 open import Num.Natural.Definition using (ℕ; succ; zero) public
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨_⟩'_; _≡⟨'_⟩'_; _≡⟨⟩_; _∎; _◈_)
+-- open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 
 data ℤ : Set where
     pos : ℕ → ℤ
