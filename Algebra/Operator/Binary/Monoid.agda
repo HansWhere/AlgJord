@@ -101,3 +101,7 @@ comm∀ _*_ (c :: cs) i xs =
     ≡⟨ comm∀ _*_ cs i (cycle c xs) ⟩
         foldl _*_ i (perm cs (cycle c xs))
     ∎
+
+comm∀i : {A : Set ℓ} (_*_ : A → A → A) ⦃ _ : Monoid _*_ ⦄ ⦃ _ : Comm _*_ ⦄ {n : ℕ} (pm : List (List (Fin n))) (xs : List A) 
+    → foldli _*_ xs ≡ foldli _*_ (perm pm xs)
+comm∀i _*_ cs xs = comm∀ _*_ cs ε xs
