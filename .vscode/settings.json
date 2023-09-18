@@ -18,7 +18,12 @@
         "Relation/Equality.agdai",
         "Relation/Equivalance.agdai",
         "Relation/Property.agdai",
-        "Control/List/Definition.agdai"
+        "Control/List/Definition.agdai",
+        "Control/List/Vector/Definition.agdai",
+        "Control/List/Vector/Util.agdai",
+        "Control/Finite/Definition.agdai",
+        "Control/Tree/Binary/Skeleton/Definition.agdai",
+        "Control/Function/Util.agdai"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -45,6 +50,11 @@
         "Relation/Equality.agdai": true,
         "Relation/Equivalance.agdai": true,
         "Relation/Property.agdai": true,
-        "Control/List/Definition.agdai": true
+        "Control/List/Definition.agdai": true,
+        "Control/List/Vector/Definition.agdai": true,
+        "Control/List/Vector/Util.agdai": true,
+        "Control/Finite/Definition.agdai": true,
+        "Control/Tree/Binary/Skeleton/Definition.agdai": true,
+        "Control/Function/Util.agdai": true
     }
 }

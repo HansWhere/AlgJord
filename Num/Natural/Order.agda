@@ -18,11 +18,11 @@ inv-succ≤ (succ x≤y) = x≤y
 inv-zero≤ : {x : ℕ} → x ≤ ℕ.zero → x ≡ ℕ.zero 
 inv-zero≤ zero = ≡.refl
 
-antisymm : {x y : ℕ} → x ≤ y → y ≤ x → x ≡ y
+antisymm : {x y : ℕ} → x ≤ y → y ≤ x → x ≡ y
 antisymm zero zero = ≡.refl
 antisymm (succ x≤y) (succ y≤z) = ℕ.succ ◈ antisymm x≤y y≤z
 
-trans : {x y z : ℕ} → x ≤ y → y ≤ z → x ≤ z
+trans : {x y z : ℕ} → x ≤ y → y ≤ z → x ≤ z
 trans zero _ = zero
 trans (succ x≤y) (succ y≤z) = succ (trans x≤y y≤z) 
 

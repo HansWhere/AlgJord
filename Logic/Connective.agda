@@ -5,7 +5,7 @@ private
     variable
         ℓ ℓ' : Level
 
-infixl 20 _∧_
+infixl 15 _∧_
 infixl 10 _∨_
 infixl 10 _⹁_ 
 

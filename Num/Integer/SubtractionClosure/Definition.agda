@@ -3,21 +3,21 @@ module Num.Integer.SubtractionClosure.Definition where
 open import Num.Natural.Definition using (ℕ; succ; zero)
 open import Num.Natural.Algebra
 open + using (_+_)
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
-open import Relation.Equivalance public
+open import Relation.Equivalance as ≃ using (Trans; trans; Symm; symm; Refl; refl; Eqv; EqvSet; _➤_)
+open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _≡➤_)
 
 infixl 60 _−_
-infix 40 _≃_
+infix 40 _≅_
 
 data ℤ : Set where
     _−_ : ℕ → ℕ → ℤ
 
-_≃_ : ℤ → ℤ → Set
-x₁ − x₂ ≃ y₁ − y₂ = x₁ + y₂ ≡ x₂ + y₁
+_≅_ : ℤ → ℤ → Set
+x₁ − x₂ ≅ y₁ − y₂ = x₁ + y₂ ≡ x₂ + y₁
 
 instance
-    ≃-Trans : Trans _≃_
-    Trans.trans ≃-Trans {x₁ − x₂} {y₁ − y₂} {z₁ − z₂} x≃y y≃z = 
+    ≅-Trans : Trans _≅_
+    Trans.trans ≅-Trans {x₁ − x₂} {y₁ − y₂} {z₁ − z₂} x≅y y≅z = 
         +.canc (x₁ + z₂) (x₂ + z₁) (y₁ + y₂) (
                 x₁ + z₂ + (y₁ + y₂)
             ≡⟨ (λ u → x₁ + z₂ + u) ◈ +.comm y₁ y₂ ⟩
@@ -30,7 +30,7 @@ instance
                 x₁ + (y₂ + (y₁ + z₂))
             ≡⟨' +.assoc x₁ y₂ (y₁ + z₂) ⟩
                 x₁ + y₂ + (y₁ + z₂)
-            ≡⟨ ≡.cong2 _+_ x≃y y≃z ⟩
+            ≡⟨ ≡.cong2 _+_ x≅y y≅z ⟩
                 x₂ + y₁ + (y₂ + z₁)
             ≡⟨ +.assoc x₂ y₁ (y₂ + z₁) ⟩
                 x₂ + (y₁ + (y₂ + z₁))
@@ -43,15 +43,20 @@ instance
             ∎
         )
         
-    ≃-Symm : Symm _≃_
-    Symm.symm ≃-Symm {x₁ − x₂} {y₁ − y₂} x≃y = +.comm y₁ x₂ ➤ ≡.symm x≃y ➤ +.comm x₁ y₂
+    ≅-Symm : Symm _≅_
+    Symm.symm ≅-Symm {x₁ − x₂} {y₁ − y₂} x≅y = +.comm y₁ x₂ ≡➤ ≡.symm x≅y ≡➤ +.comm x₁ y₂
+        -- ≡.trans (+.comm y₁ x₂) (≡.trans (≡.symm x≅y) (+.comm x₁ y₂))
 
-    ≃-Refl : Refl _≃_
-    Refl.refl ≃-Refl {x₁ − x₂} = +.comm x₁ x₂
+    ≅-Refl : Refl _≅_
+    Refl.refl ≅-Refl {x₁ − x₂} = +.comm x₁ x₂
 
-    ≃-Eqv : Eqv _≃_
-    ≃-Eqv = record
-        {   -Trans = ≃-Trans
-        ;   -Symm = ≃-Symm
-        ;   -Refl = ≃-Refl
+    ≅-Eqv : Eqv _≅_
+    ≅-Eqv = record
+        {   -Trans = ≅-Trans
+        ;   -Symm = ≅-Symm
+        ;   -Refl = ≅-Refl
         }
+
+    ℤ-EqvSet : EqvSet ℤ
+    EqvSet._≃_ ℤ-EqvSet = _≅_
+

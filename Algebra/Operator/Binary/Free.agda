@@ -1,14 +1,14 @@
 module Algebra.Operator.Binary.Free where
 open import Agda.Primitive using (Level)
 open import Control.List.Definition
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
-open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
+open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
+-- open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 
 private 
     variable
         ℓ : Level
 
-infixl 60 _◌_ _◐_ _◑_ _◍_
+infixl 10 _◌_ _◐_ _◑_ _◍_
 
 data Free (A : Set ℓ) : Set ℓ where
     pure : A → Free A

@@ -1,8 +1,9 @@
 module Algebra.Operator.Binary.Monoid where
 open import Agda.Primitive using (Level)
-open import Algebra.Operator.Binary.Property using (foldl; foldli; Assoc; assoc; Comm; comm; Iden; ε; idenl; idenr) public
+open import Algebra.Operator.Binary.Property using (foldl; foldli; Assoc; assoc; Comm; comm; Iden; ε; idenL; idenR) public
 open import Control.List.Definition
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
+open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
+open import Relation.Equivalance as ≃ using (Eqv; _≃⟨⟩_; _≃⟨'_⟩_; _≃⟨_⟩_; _□; _➤_)
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 open import Control.Finite.Definition
 open import Algebra.Permutation
@@ -11,10 +12,10 @@ private
     variable
         ℓ : Level
 
-record Monoid {A : Set ℓ} (_*_ : A → A → A): Set ℓ where 
+record Monoid {A : Set ℓ} {_≃_ : A → A → Set ℓ} ⦃ _ : Eqv _≃_ ⦄ (_*_ : A → A → A): Set ℓ where 
     field 
-        overlap ⦃ -Iden ⦄ : Iden _*_
-        overlap ⦃ -Assoc ⦄ : Assoc _*_
+        overlap ⦃ -Iden ⦄ : Iden {_≃_ = _≃_} _*_
+        overlap ⦃ -Assoc ⦄ : Assoc {_≃_ = _≃_} _*_
 open Monoid ⦃...⦄ public
 
 private

@@ -2,7 +2,8 @@ module Num.Natural.Algebra where
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 open import Logic.Connective using (_∧_; _⹁_)
-open import Operator.Binary.Property using (Comm, Assoc, Distr)
+open import Algebra.Operator.Binary.Property using (Comm; Assoc; Distr; Iden; Cong)
+open import Algebra.Operator.Binary.Monoid using (Monoid)
 
 module + where
     infixl 60 _+_
@@ -43,10 +44,6 @@ module + where
         ≡⟨⟩
             y + succ x 
         ∎
-    
-    instance
-        +-Comm : Comm _+_
-        Comm.comm : 
 
     assoc : (x y z : ℕ) → x + y + z ≡ x + (y + z)
     assoc x y zero = ≡.refl
@@ -59,6 +56,24 @@ module + where
         ≡⟨⟩ 
             x + (y + succ z)
         ∎
+
+    instance
+        +over≡-Cong : Cong _≡_ _+_
+        Cong.cong +over≡-Cong = ≡.cong2 _+_
+
+        +-Comm : Comm _+_
+        Comm.comm +-Comm = comm
+
+        +-Assoc : Assoc _+_
+        Assoc.assoc +-Assoc = assoc
+
+        +-Iden : Iden _+_ 
+        Iden.ε +-Iden = 0
+        Iden.idenL +-Iden = left-iden
+        Iden.idenR +-Iden x = ≡.refl
+
+        +-Monoid : Monoid _+_
+        Monoid.-Iden +-Monoid = +-Iden
 
     infixl 60 _∸_
     _∸_ : ℕ → ℕ → ℕ
@@ -125,7 +140,7 @@ module * where
             y * succ x 
         ∎
 
-    module to+ where
+    module over+ where
         distrL : (x y z : ℕ) → x * (y + z) ≡ x * y + x * z 
         distrL x y zero = ≡.refl
         distrL x y (succ z) = 
@@ -154,6 +169,11 @@ module * where
         distr : (x y z : ℕ) → x * (y + z) ≡ x * y + x * z ∧ (x + y) * z ≡ x * z + y * z
         distr x y z = distrL x y z ⹁ distrR x y z 
 
+        instance
+            *over+-Distr : Distr _+_ _*_ 
+            Distr.distrL *over+-Distr = distrL
+            Distr.distrR *over+-Distr = distrR
+
     assoc : (x y z : ℕ) → x * y * z ≡ x * (y * z)
     assoc x y zero = ≡.refl
     assoc x y (succ z) = 
@@ -162,8 +182,35 @@ module * where
             x * y * z + x * y 
         ≡⟨ (λ u → u + x * y) ◈ assoc x y z ⟩
             x * (y * z) + x * y 
-        ≡⟨ ≡.symm (to+.distrL x (y * z) y) ⟩
+        ≡⟨ ≡.symm (over+.distrL x (y * z) y) ⟩
             x * (y * z + y)
         ≡⟨⟩
             x * (y * succ z)
         ∎
+    
+    instance
+        *over≡-Cong : Cong _≡_ _*_
+        Cong.cong *over≡-Cong = ≡.cong2 _*_
+
+        *-Comm : Comm _*_
+        Comm.comm *-Comm = comm
+
+        *-Assoc : Assoc _*_
+        Assoc.assoc *-Assoc = assoc
+
+        *-Iden : Iden _*_ 
+        Iden.ε *-Iden = 1
+        Iden.idenL *-Iden x = 
+                1 * x
+            ≡⟨ left-succ 0 x ⟩
+                0 * x + x
+            ≡⟨ (λ u → u + x) ◈ left-zero x ⟩ 
+                0 + x
+            ≡⟨ +.comm 0 x ⟩ 
+                x
+            ∎  
+        Iden.idenR *-Iden x = +.comm 0 x
+
+        *-Monoid : Monoid _*_
+        Monoid.-Iden *-Monoid = *-Iden
+

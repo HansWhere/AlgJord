@@ -4,7 +4,7 @@ open import Control.List.Vector.Definition
 open import Control.List.Definition
 open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
 open import Control.Finite.Definition
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _➤_)
+open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 
 private 
     variable
