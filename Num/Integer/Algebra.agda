@@ -1,5 +1,5 @@
-module Num.Integer.SubtractionClosure.Algebra where 
-open import Num.Integer.SubtractionClosure.Definition as ℤ using (ℤ; _≅_) renaming (_−_ to _-−_)
+module Num.Integer.Algebra where 
+open import Num.Integer.Definition as ℤ using (ℤ; _≅_) renaming (_−_ to _-−_)
 import Num.Natural.Algebra as ℕ
 open import Num.Natural.Definition using (zero)
 open import Algebra.Operator.Binary.Property using (Free; assoc∀l; _◌_; _◍_; _◐_; _◑_)

@@ -1,5 +1,5 @@
 {-# OPTIONS --copatterns #-}
-module Num.Integer.SubtractionClosure.Definition where
+module Num.Integer.Definition where
 open import Num.Natural.Definition using (ℕ; succ; zero)
 open import Num.Natural.Algebra
 open + using (_+_)

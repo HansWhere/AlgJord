@@ -23,7 +23,11 @@
         "Control/List/Vector/Util.agdai",
         "Control/Finite/Definition.agdai",
         "Control/Tree/Binary/Skeleton/Definition.agdai",
-        "Control/Function/Util.agdai"
+        "Control/Function/Util.agdai",
+        "Num/Integer/Algebra.agdai",
+        "Num/Integer/Definition.agdai",
+        "Relation/Order.agdai",
+        "Num/Integer/Order.agdai"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -55,6 +59,10 @@
         "Control/List/Vector/Util.agdai": true,
         "Control/Finite/Definition.agdai": true,
         "Control/Tree/Binary/Skeleton/Definition.agdai": true,
-        "Control/Function/Util.agdai": true
+        "Control/Function/Util.agdai": true,
+        "Num/Integer/Algebra.agdai": true,
+        "Num/Integer/Definition.agdai": true,
+        "Relation/Order.agdai": true,
+        "Num/Integer/Order.agdai": true
     }
 }
