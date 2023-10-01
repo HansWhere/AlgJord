@@ -49,3 +49,4 @@ cycle (⒨ :: ⒩ :: ⒩s) xs = cycle (⒩ :: ⒩s) (swap ⒨ ⒩ xs)
 perm : {n : ℕ} → List (List (Fin n)) → {A : Set ℓ} → List A → List A
 perm [] xs = xs
 perm (c :: cs) xs = perm cs (cycle c xs)
+

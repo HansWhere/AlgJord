@@ -1,6 +1,5 @@
 {
     "hide-files.files": [
-        "Algebra/Operator/Binary/Monoid.agdai",
         "Algebra/Operator/Binary/Property.agdai",
         "Algebra/Permutation.agdai",
         "Num/Integer/SubtractionClosure/Algebra.agdai",
@@ -27,7 +26,10 @@
         "Num/Integer/Algebra.agdai",
         "Num/Integer/Definition.agdai",
         "Relation/Order.agdai",
-        "Num/Integer/Order.agdai"
+        "Num/Integer/Order.agdai",
+        "Num/Rational/Definition.agdai",
+        "Control/Function/PointFree.agdai",
+        "Algebra/Operator/Binary/Monoid.agdai"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -36,7 +38,6 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "Algebra/Operator/Binary/Monoid.agdai": true,
         "Algebra/Operator/Binary/Property.agdai": true,
         "Algebra/Permutation.agdai": true,
         "Num/Integer/SubtractionClosure/Algebra.agdai": true,
@@ -63,6 +64,9 @@
         "Num/Integer/Algebra.agdai": true,
         "Num/Integer/Definition.agdai": true,
         "Relation/Order.agdai": true,
-        "Num/Integer/Order.agdai": true
+        "Num/Integer/Order.agdai": true,
+        "Num/Rational/Definition.agdai": true,
+        "Control/Function/PointFree.agdai": true,
+        "Algebra/Operator/Binary/Monoid.agdai": true
     }
 }

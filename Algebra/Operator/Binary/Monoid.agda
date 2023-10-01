@@ -1,6 +1,6 @@
 module Algebra.Operator.Binary.Monoid where
 open import Agda.Primitive using (Level)
-open import Algebra.Operator.Binary.Property using (foldl; foldli; Assoc; assoc; Comm; comm; Iden; ε; idenL; idenR) public
+open import Algebra.Operator.Binary.Property using (foldl; foldli; Assoc; assoc; Comm; comm; Iden; id; idenL; idenR) public
 open import Control.List.Definition
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
 open import Relation.Equivalance as ≃ using (Eqv; _≃⟨⟩_; _≃⟨'_⟩_; _≃⟨_⟩_; _□; _➤_)
@@ -105,4 +105,4 @@ comm∀ _*_ (c :: cs) i xs =
 
 comm∀i : {A : Set ℓ} (_*_ : A → A → A) ⦃ _ : Monoid _*_ ⦄ ⦃ _ : Comm _*_ ⦄ {n : ℕ} (pm : List (List (Fin n))) (xs : List A) 
     → foldli _*_ xs ≡ foldli _*_ (perm pm xs)
-comm∀i _*_ cs xs = comm∀ _*_ cs ε xs
+comm∀i _*_ cs xs = comm∀ _*_ cs id xs

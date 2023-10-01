@@ -1,9 +1,11 @@
 module Num.Natural.Algebra where
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
-open import Num.Natural.Definition as ℕ using (ℕ; succ; zero)
-open import Logic.Connective using (_∧_; _⹁_)
+open import Control.Function.Util hiding (id)
+open import Relation.Equality as ≡ 
+open import Num.Natural.Definition as ℕ using (ℕ; succ; zero; 1≠0)
+open import Logic.Connective using (_∧_; _,_)
 open import Algebra.Operator.Binary.Property using (Comm; Assoc; Distr; Iden; Cong)
 open import Algebra.Operator.Binary.Monoid using (Monoid)
+open import Logic.Absurdum
 
 module + where
     infixl 60 _+_
@@ -68,7 +70,7 @@ module + where
         Assoc.assoc +-Assoc = assoc
 
         +-Iden : Iden _+_ 
-        Iden.ε +-Iden = 0
+        Iden.id +-Iden = 0
         Iden.idenL +-Iden = left-iden
         Iden.idenR +-Iden x = ≡.refl
 
@@ -128,7 +130,7 @@ module * where
                 x * y + x + succ y 
             ≡⟨⟩
                 x * succ y + succ y 
-            ∎
+            ∎        
 
     comm : (x y : ℕ) → x * y ≡ y * x 
     comm zero y = left-zero y 
@@ -167,7 +169,7 @@ module * where
                 x * z + y * z
             ∎
         distr : (x y z : ℕ) → x * (y + z) ≡ x * y + x * z ∧ (x + y) * z ≡ x * z + y * z
-        distr x y z = distrL x y z ⹁ distrR x y z 
+        distr x y z = distrL x y z , distrR x y z 
 
         instance
             *over+-Distr : Distr _+_ _*_ 
@@ -187,6 +189,17 @@ module * where
         ≡⟨⟩
             x * (y * succ z)
         ∎
+
+    no-0divisor : (x y : ℕ) → x * y ≡ 0 → ¬ y ≡ 0 → x ≡ 0
+    no-0divisor 0 y _ _ = refl
+    no-0divisor (succ x) 0 x*y≡0 y≠0 = ecq (y≠0 refl) 
+    no-0divisor (succ x) (succ y) x*y≡0 _ = ecq (1≠0 x*y≡0) 
+
+    canc : (x y c : ℕ) → x * succ c ≡ y * succ c → x ≡ y
+    canc x 0 c x*sc≡0*sc rewrite comm 0 (succ c) = no-0divisor x (succ c) x*sc≡0*sc λ()
+    canc 0 (succ y) c 0*sc=sy*sc rewrite comm 0 (succ c) = ≡.symm (no-0divisor (succ y) (succ c) (≡.symm 0*sc=sy*sc) λ())
+    canc (succ x) (succ y) c sx*sc=sy*sc rewrite comm (succ x) (succ c) | comm (succ y) (succ c) =
+        succ ◈ (canc x y c $ comm x (succ c) ≡➤ +.canc (succ c * x) (succ c * y) (succ c) sx*sc=sy*sc ≡➤ comm (succ c) y)
     
     instance
         *over≡-Cong : Cong _≡_ _*_
@@ -199,7 +212,7 @@ module * where
         Assoc.assoc *-Assoc = assoc
 
         *-Iden : Iden _*_ 
-        Iden.ε *-Iden = 1
+        Iden.id *-Iden = 1
         Iden.idenL *-Iden x = 
                 1 * x
             ≡⟨ left-succ 0 x ⟩

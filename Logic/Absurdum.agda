@@ -8,5 +8,14 @@ infixr 30 ¬_
 
 data ⊥ : Set where
 
-¬_ : Set → Set
+data ⊤ : Set where
+    tt : ⊤
+
+¬_ : Set ℓ → Set ℓ
 ¬ A = A → ⊥
+
+ecq : {A : Set ℓ} → ⊥ → A
+ecq ()
+
+contrapos : {A B : Set} → (A → B) → ¬ B → ¬ A
+contrapos p ¬b a = ¬b (p a)

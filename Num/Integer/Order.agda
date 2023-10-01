@@ -23,7 +23,7 @@ antisymm : {x y : ℤ} → x ≤ y → y ≤ x → x ≅ y
 antisymm {a -− b} {c -− d} x≤y y≤x rewrite ℕ≤.antisymm x≤y y≤x = ℕ.+.comm c b
 
 trans : {x y z : ℤ} → x ≤ y → y ≤ z → x ≤ z
-trans {a -− b} {c -− d} {e -− f} x≤y y≤z = {!   !}
+trans {a -− b} {c -− d} {e -− f} x≤y y≤z = {!   !} --ℕ≤.+.monotone x≤y y≤z
 
 -- total : (x y : ℕ) → x ≤ y ∨ y ≤ x 
 -- total (ℕ.succ x) (ℕ.succ y) with total x y 

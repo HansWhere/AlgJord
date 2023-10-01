@@ -5,10 +5,12 @@ private
     variable
         ℓ ℓ' : Level
 
+infix 10 _:,_
 record ∃ (A : Set ℓ) (P : A → Set ℓ') : Set (ℓ ⊔ ℓ') where
-    constructor _s,t,_
+    constructor _:,_
     field
         obj : A
         prop : P obj 
+open ∃ public
 
 {-# BUILTIN SIGMA ∃ #-}

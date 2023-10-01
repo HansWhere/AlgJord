@@ -1,5 +1,5 @@
 module Num.Natural.Order where
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
+open import Relation.Equality as ≡ hiding (refl; symm; trans)
 open import Relation.Order as ≤ using (Trans; _➤_; Refl; Antisymm; Total; PreOrd; PartialOrd; TotalOrd; _≤⟨_⟩_; _≤⟨⟩_; _□)
 open import Num.Natural.Definition as ℕ using (ℕ)
 open import Logic.Connective using (_∧_; _⹁_; _∨_; lft; rgt)
