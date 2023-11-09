@@ -1,6 +1,6 @@
 module Num.Natural.Definition where
-open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_)
-open import Logic.Connective
+open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_) public
+open import Logic.Connective public
 
 data ℕ : Set where
     zero : ℕ

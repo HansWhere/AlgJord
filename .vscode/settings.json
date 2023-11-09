@@ -29,7 +29,10 @@
         "Num/Integer/Order.agdai",
         "Num/Rational/Definition.agdai",
         "Control/Function/PointFree.agdai",
-        "Algebra/Operator/Binary/Monoid.agdai"
+        "Algebra/Operator/Binary/Monoid.agdai",
+        "Num/Rational/Algebra.agdai",
+        "Num/Rational/Order.agdai",
+        "Num/Real/Definition.agdai"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -67,6 +70,9 @@
         "Num/Integer/Order.agdai": true,
         "Num/Rational/Definition.agdai": true,
         "Control/Function/PointFree.agdai": true,
-        "Algebra/Operator/Binary/Monoid.agdai": true
+        "Algebra/Operator/Binary/Monoid.agdai": true,
+        "Num/Rational/Algebra.agdai": true,
+        "Num/Rational/Order.agdai": true,
+        "Num/Real/Definition.agdai": true
     }
 }

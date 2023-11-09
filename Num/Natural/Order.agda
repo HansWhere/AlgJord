@@ -1,8 +1,7 @@
 module Num.Natural.Order where
 open import Relation.Equality as ≡ hiding (refl; symm; trans)
 open import Relation.Order as ≤ using (Trans; _➤_; Refl; Antisymm; Total; PreOrd; PartialOrd; TotalOrd; _≤⟨_⟩_; _≤⟨⟩_; _□)
-open import Num.Natural.Definition as ℕ using (ℕ)
-open import Logic.Connective using (_∧_; _⹁_; _∨_; lft; rgt)
+open import Num.Natural.Definition
 
 infix 40 _≤_
 data _≤_ : ℕ → ℕ → Set where
@@ -12,6 +11,9 @@ data _≤_ : ℕ → ℕ → Set where
 refl : {x : ℕ} → x ≤ x
 refl {0} = zero
 refl {ℕ.succ x} = succ refl
+
+≡⇨≤ : {x y : ℕ} → x ≡ y → x ≤ y
+≡⇨≤ {x} {.x} ≡.refl = refl
 
 antisymm : {x y : ℕ} → x ≤ y → y ≤ x → x ≡ y
 antisymm zero zero = ≡.refl

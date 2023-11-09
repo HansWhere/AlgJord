@@ -1,7 +1,7 @@
 module Num.Integer.Algebra where 
 open import Control.Function.Util hiding (id)
-open import Num.Integer.Definition as ℤ hiding (refl; symm; trans) renaming (_,_ to _,,_)
-import Num.Natural.Algebra as ℕ
+open import Num.Natural.Algebra as ℕ using () renaming (_+_ to _⊹_; _*_ to _×_)
+open import Num.Integer.Definition as ℤ renaming (_,_ to _,,_) 
 open import Num.Natural.Definition using (ℕ; 1≠0)
 open import Algebra.Operator.Binary.Property using (Comm; Assoc; Distr; Iden; Cong; Free; assoc∀l; _◌_; _◍_; _◐_; _◑_)
 open import Algebra.Operator.Binary.Monoid using (Monoid; comm∀i)
@@ -10,17 +10,16 @@ open import Control.Finite.Definition
 open import Relation.Equality as ≡ using (_≡_; _≡⟨_⟩_; _≡⟨'_⟩_; _≡⟨⟩_; _∎; _◈_; _≡➤_)
 open import Relation.Equivalance
 
-module + where
-    open ℕ.+ using () renaming (_+_ to _⊹_)
-    infixl 60 _+_ 
-    _+_ : ℤ → ℤ → ℤ
-    (x1 − x2) + (y1 − y2) = (x1 ⊹ y1) − (x2 ⊹ y2) 
+infixl 60 _+_ 
+_+_ : ℤ → ℤ → ℤ
+(x1 − x2) + (y1 − y2) = (x1 ⊹ y1) − (x2 ⊹ y2) 
 
+module + where
     comm : (x y : ℤ) → x + y ≅ y + x 
     comm (x1 − x2) (y1 − y2) = ℕ.+.comm (x1 ⊹ y1) (y2 ⊹ x2) ≡➤ ≡.cong2 _⊹_ (ℕ.+.comm y2 x2) (ℕ.+.comm x1 y1)
 
     id : ℤ
-    id = 0 − 0
+    id = 0z
 
     idenL : (x : ℤ) → id + x ≅ x
     idenL (x1 − x2) rewrite ℕ.+.comm 0 x1 | ℕ.+.comm 0 x2 = ℕ.+.comm x1 x2
@@ -78,22 +77,18 @@ module + where
         Assoc.assoc +-Assoc = assoc
 
         +-Iden : Iden {_≃_ = _≅_} _+_
-        Iden.id +-Iden = 0 − 0
+        Iden.id +-Iden = 0z
         Iden.idenL +-Iden (x1 − x2) rewrite ℕ.+.comm 0 x1 | ℕ.+.comm 0 x2 = ℕ.+.comm x1 x2
         Iden.idenR +-Iden (x1 − x2) = ℕ.+.comm x1 x2
 
         +-Monoid : Monoid _+_
         Monoid.-Iden +-Monoid = +-Iden 
 
+infixl 70 _*_ 
+_*_ : ℤ → ℤ → ℤ
+(x1 − x2) * (y1 − y2) = (x1 × y1 ⊹ x2 × y2) − (x1 × y2 ⊹ x2 × y1)
+
 module * where
-    open + using (_+_)
-    open ℕ.* using () renaming (_*_ to _×_)
-    open ℕ.+ using (+-Monoid) renaming (_+_ to _⊹_)
-
-    infixl 70 _*_ 
-    _*_ : ℤ → ℤ → ℤ
-    (x1 − x2) * (y1 − y2) = (x1 × y1 ⊹ x2 × y2) − (x1 × y2 ⊹ x2 × y1)
-
     comm : (x y : ℤ) → x * y ≅ y * x 
     comm (x1 − x2) (y1 − y2) = 
             (x1 × y1 ⊹ x2 × y2) ⊹ (y1 × x2 ⊹ y2 × x1)
@@ -116,7 +111,7 @@ module * where
     idenR (x1 − x2) rewrite ℕ.+.comm 0 x1 | ℕ.+.comm 0 x2 | ℕ.+.comm 0 x2 = ℕ.+.comm x1 x2 
 
     zero : ℤ
-    zero = 0 − 0
+    zero = 0z
 
     zeroL : (x : ℤ) → zero * x ≅ zero
     zeroL x@(x1 − x2) = comm zero x
@@ -220,19 +215,22 @@ module * where
             (x1 × y1 ⊹ x2 × y2) × z2 ⊹ (x1 × y2 ⊹ x2 × y1) × z1 ⊹ (x1 × (y1 × z1 ⊹ y2 × z2) ⊹ x2 × (y1 × z2 ⊹ y2 × z1))
         ∎
 
-    no-0divisor : (x y : ℤ) → x * y ≅ 0 − 0 → y ≇ 0 − 0 → x ≅ 0 − 0
+    no-0divisor : (x y : ℤ) → x * y ≅ 0z → y ≇ 0z → x ≅ 0z
     no-0divisor x y x*y≡0 y≠0 with trichotomy y but y≠0 | trichotomy x
     ... | _ | rgt x≅0 = x≅0
     ... | lft (n :, y≡n+1) | lft (lft (m :, x≡m+1)) = 
-        ecq $ 1≠0 $ ≡.symm $ ℕ.*.comm n 0 ≡➤ ℕ.+.comm (0 × n) 0 ≡➤ ℕ.+.comm (0 ⊹ 0 × n) 0 ≡➤ ℤ.trans (ℤ.symm x*y≡0) (cong x≡m+1 y≡n+1)
+        ecq $ 1≠0 $ ≡.symm $ ℕ.*.comm n 0 ≡➤ ℕ.+.comm (0 × n) 0 ≡➤ ℕ.+.comm (0 ⊹ 0 × n) 0 ≡➤ ℤ.≅.trans (ℤ.≅.symm x*y≡0) (cong x≡m+1 y≡n+1)
     ... | lft (n :, y≡n+1) | lft (rgt (m :, x≡-m-1)) = 
-        ecq $ 1≠0 $ ℤ.trans (ℤ.symm x*y≡0) (cong x≡-m-1 y≡n+1) ≡➤ ℕ.+.comm 0 (0 × n) ≡➤ ℕ.*.comm 0 n
+        ecq $ 1≠0 $ ℤ.≅.trans (ℤ.≅.symm x*y≡0) (cong x≡-m-1 y≡n+1) ≡➤ ℕ.+.comm 0 (0 × n) ≡➤ ℕ.*.comm 0 n
     ... | rgt (n :, y≡-n-1) | lft (lft (m :, x≡m+1)) = 
-        ecq $ 1≠0 $ ℤ.trans (ℤ.symm x*y≡0) (cong x≡m+1 y≡-n-1) ≡➤ ℕ.+.comm 0 (0 ⊹ 0 × n) ≡➤ ℕ.+.comm 0 (0 × n) ≡➤ ℕ.*.comm 0 n
+        ecq $ 1≠0 $ ℤ.≅.trans (ℤ.≅.symm x*y≡0) (cong x≡m+1 y≡-n-1) ≡➤ ℕ.+.comm 0 (0 ⊹ 0 × n) ≡➤ ℕ.+.comm 0 (0 × n) ≡➤ ℕ.*.comm 0 n
     ... | rgt (n :, y≡-n-1) | lft (rgt (m :, x≡-m-1)) = 
-        ecq $ 1≠0 $ ≡.symm $ ℕ.*.comm n 0 ≡➤ ℕ.+.comm (0 × n) 0 ≡➤ ℤ.trans (ℤ.symm x*y≡0) (cong x≡-m-1 y≡-n-1)
+        ecq $ 1≠0 $ ≡.symm $ ℕ.*.comm n 0 ≡➤ ℕ.+.comm (0 × n) 0 ≡➤ ℤ.≅.trans (ℤ.≅.symm x*y≡0) (cong x≡-m-1 y≡-n-1)
 
-    canc : (x y c : ℤ) → c ≇ 0 − 0 → x * c ≅ y * c → x ≅ y
+    -- no-0divisor' : (x y : ℤ) → x ≇ 0z → y ≇ 0z → x * y ≇ 0z
+    -- no-0divisor' x y x≇0 y≇0 x*y≅0 = x≇0 (no-0divisor x y x*y≅0 y≇0)
+
+    canc : (x y c : ℤ) → c ≇ 0z → x * c ≅ y * c → x ≅ y
     canc x y c c≠0 xc≅yc = x
         ≃⟨ symm $ +.idenR x ⟩
             x + +.id
@@ -241,7 +239,7 @@ module * where
         ≃⟨ symm $ +.assoc x (+.inv y) y ⟩ 
             x + +.inv y + y
         ≃⟨ +.cong (no-0divisor (x + +.inv y) c eq1 c≠0) (refl {x = y}) ⟩
-            (0 − 0) + y
+            0z + y
         ≃⟨ +.idenL y ⟩
             y
         □

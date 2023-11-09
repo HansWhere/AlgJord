@@ -1,19 +1,17 @@
 module Num.Natural.Algebra where
 open import Control.Function.Util hiding (id)
 open import Relation.Equality as ≡ 
-open import Num.Natural.Definition as ℕ using (ℕ; succ; zero; 1≠0)
-open import Logic.Connective using (_∧_; _,_)
+open import Num.Natural.Definition 
 open import Algebra.Operator.Binary.Property using (Comm; Assoc; Distr; Iden; Cong)
 open import Algebra.Operator.Binary.Monoid using (Monoid)
-open import Logic.Absurdum
+
+infixl 60 _+_
+_+_ : ℕ → ℕ → ℕ
+x + zero = x
+x + succ y = succ (x + y)
+{-# BUILTIN NATPLUS _+_ #-}
 
 module + where
-    infixl 60 _+_
-    _+_ : ℕ → ℕ → ℕ
-    x + zero = x
-    x + succ y = succ (x + y)
-    {-# BUILTIN NATPLUS _+_ #-}
-
     left-iden : (x : ℕ) → zero + x ≡ x
     left-iden zero = ≡.refl
     left-iden (succ x) = 
@@ -91,14 +89,13 @@ module + where
     canc x y zero x+c≡y+c = x+c≡y+c
     canc x y (succ c) x+c≡y+c = canc x y c (pred ◈ x+c≡y+c)
 
-module * where
-    open + using (_+_)
-    infixl 70 _*_
-    _*_ : ℕ → ℕ → ℕ
-    x * zero = zero 
-    x * succ y = x * y + x
-    {-# BUILTIN NATTIMES _*_ #-}
+infixl 70 _*_
+_*_ : ℕ → ℕ → ℕ
+x * zero = zero 
+x * succ y = x * y + x
+{-# BUILTIN NATTIMES _*_ #-}
 
+module * where
     private
         left-zero : (x : ℕ) → zero * x ≡ zero 
         left-zero zero = ≡.refl 

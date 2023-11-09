@@ -1,7 +1,7 @@
 module Relation.Order where
 open import Agda.Primitive using (Level; lsuc; _⊔_)
 open import Relation.Equivalance public
-open import Logic.Connective using (_∧_; _⹁_; _∨_; lft; rgt)
+open import Logic.Connective using (_∧_; _,_; _∨_; lft; rgt)
 open import Logic.Absurdum
 
 private 
